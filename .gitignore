@@ -1,0 +1,9 @@
+.env
+__pycache__
+.terraform*
+terraform.tfstate
+.gradle
+build
+streams/bin/*
+.DS_Store
+terraform/terraform.tfstate.backup

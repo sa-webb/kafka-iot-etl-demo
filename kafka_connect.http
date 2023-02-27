@@ -1,0 +1,33 @@
+# Kafka Connect Plugins
+GET http://localhost:8083/connector-plugins
+
+###
+
+# Kafka Connectors
+GET http://localhost:8083/connectors
+
+###
+
+# Get Connector Config
+GET http://localhost:8083/connectors/S3SinkConnectorConnector_Sensor1
+
+###
+
+# Get V2 Connector Config
+GET http://localhost:8083/connectors/S3SinkConnectorConnector_Sensor1_v2
+
+###
+
+# Get Connector Status
+GET http://localhost:8083/connectors/S3SinkConnectorConnector_Sensor1/status
+
+###
+
+# Pause Connector
+PUT http://localhost:8083/connectors/S3SinkConnectorConnector_Sensor1/pause
+
+###
+
+# Resume Connector
+PUT http://localhost:8083/connectors/S3SinkConnectorConnector_Sensor1/resume
+

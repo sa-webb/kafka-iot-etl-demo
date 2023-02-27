@@ -1,0 +1,42 @@
+# Check server status
+GET http://localhost:8088/info
+
+###
+
+# Create source stream
+POST http://localhost:8088/ksql HTTP/1.1
+Accept: application/vnd.ksql.v1+json
+Content-Type: application/json
+
+{
+    "ksql": "CREATE STREAM json_sensor1_source (\"timestamp\" BIGINT, \"values\" ARRAY<INTEGER>) WITH (KAFKA_TOPIC='json.sensor1', VALUE_FORMAT='JSON');",
+    "streamsProperties": {
+        "ksql.streams.auto.offset.reset": "earliest"
+    }
+}
+
+###
+
+# Create sink stream
+POST http://localhost:8088/ksql HTTP/1.1
+Accept: application/vnd.ksql.v1+json
+Content-Type: application/json
+
+{
+    "ksql": "CREATE STREAM avro_sensor1 WITH (VALUE_FORMAT='AVRO') AS SELECT * FROM json_sensor1_source;",
+    "streamsProperties": {
+        "ksql.streams.auto.offset.reset": "earliest"
+    }
+}
+
+###
+
+# List streams
+POST http://localhost:8088/ksql HTTP/1.1
+Accept: application/vnd.ksql.v1+json
+Content-Type: application/json
+
+{
+    "ksql": "LIST STREAMS;",
+    "streamsProperties": {}
+}

@@ -1,0 +1,42 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+}
+
+plugins {
+    id "java"
+    id "com.github.johnrengelman.shadow" version "6.0.0"
+}
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
+version = "1.0.0"
+
+repositories {
+    mavenCentral()
+    jcenter()
+
+    maven {
+        url "https://packages.confluent.io/maven"
+    }
+}
+
+dependencies {
+    implementation "io.confluent.ksql:ksqldb-udf:7.3.0"
+    implementation "org.apache.kafka:kafka_2.13:2.5.0"
+    implementation "org.apache.kafka:connect-api:2.5.0"
+}
+
+apply plugin: "com.github.johnrengelman.shadow"
+apply plugin: "java"
+
+compileJava {
+    options.compilerArgs << "-parameters"
+}
+
+shadowJar {
+    archiveBaseName = "udfs"
+    archiveClassifier = ""
+    destinationDirectory = file("extensions")
+}
